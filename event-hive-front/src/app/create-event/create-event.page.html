@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Créer un événement</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="createEventForm" (ngSubmit)="createEvent()">
+    <ion-item>
+      <ion-label position="floating">Titre</ion-label>
+      <ion-input formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Date</ion-label>
+      <ion-datetime formControlName="date" display-format="MMM D, YYYY HH:mm"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Prix</ion-label>
+      <ion-input formControlName="price" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Tickets disponibles</ion-label>
+      <ion-input formControlName="ticketsAvailable" type="number"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit" [disabled]="!createEventForm.valid">Créer</ion-button>
+  </form>
+</ion-content>

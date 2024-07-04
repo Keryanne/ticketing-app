@@ -1,53 +1,122 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Apollo } from 'apollo-angular';
+import { gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocationService {
-  private apiUrl = 'http://localhost:5093/api/locations'; // Assurez-vous que l'URL est correcte
+export class EventService {
+  constructor(private apollo: Apollo) {}
 
-  constructor(private http: HttpClient) {}
-
-  getAllLocations(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  getAllEvents(): Observable<any> {
+    const GET_EVENTS = gql`
+      query GetEvents {
+        events {
+          id
+          title
+          description
+          date
+          price
+          ticketsAvailable
+          ticketsSold
+        }
+      }
+    `;
+    return this.apollo.query({ query: GET_EVENTS }).pipe(map((result: any) => result.data.events));
   }
 
-  getLocationById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  getEventById(id: number): Observable<any> {
+    const GET_EVENT = gql`
+      query GetEvent($id: Int!) {
+        event(id: $id) {
+          id
+          title
+          description
+          date
+          price
+          ticketsAvailable
+          ticketsSold
+        }
+      }
+    `;
+    return this.apollo.query({ query: GET_EVENT, variables: { id } }).pipe(map((result: any) => result.data.event));
   }
 
-  addLocation(location: FormData): Observable<any> {
-    return this.http.post(this.apiUrl, location);
+  getUserEvents(): Observable<any> {
+    const GET_USER_EVENTS = gql`
+      query Me {
+        me {
+          id
+          username
+          email
+          events {
+            id
+            title
+            description
+            date
+            price
+            ticketsAvailable
+            ticketsSold
+          }
+        }
+      }
+    `;
+    return this.apollo.query({ query: GET_USER_EVENTS }).pipe(map((result: any) => result.data.me.events));
   }
 
-  deleteLocation(locationId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${locationId}`);
+  createEvent(event: any): Observable<any> {
+    const CREATE_EVENT = gql`
+      mutation CreateEvent($title: String!, $description: String!, $date: String!, $price: Float!, $ticketsAvailable: Int!) {
+        createEvent(title: $title, description: $description, date: $date, price: $price, ticketsAvailable: $ticketsAvailable) {
+          id
+          title
+          description
+          date
+          price
+          ticketsAvailable
+          ticketsSold
+        }
+      }
+    `;
+    return this.apollo.mutate({ 
+      mutation: CREATE_EVENT, 
+      variables: {
+        title: event.title,
+        description: event.description,
+        date: event.date,
+        price: event.price,
+        ticketsAvailable: event.ticketsAvailable
+      }
+    }).pipe(map((result: any) => result.data.createEvent));
   }
 
-  updateLocation(locationId: number, location: FormData): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${locationId}`, location);
-  }
-
-  searchLocations(params: any): Observable<any> {
-    let httpParams = new HttpParams();
-    if (params.searchTerm) {
-      httpParams = httpParams.append('searchTerm', params.searchTerm);
-    }
-    if (params.availableFrom) {
-      httpParams = httpParams.append('availableFrom', params.availableFrom);
-    }
-    if (params.availableTo) {
-      httpParams = httpParams.append('availableTo', params.availableTo);
-    }
-    if (params.maxPrice) {
-      httpParams = httpParams.append('maxPrice', params.maxPrice);
-    }
-    if (params.maxGuests) {
-      httpParams = httpParams.append('maxGuests', params.maxGuests);
-    }
-
-    return this.http.get(`${this.apiUrl}/search`, { params: httpParams });
+  buyTicket(eventId: number): Observable<any> {
+    const BUY_TICKET = gql`
+      mutation BuyTicket($eventId: Int!) {
+        buyTicket(eventId: $eventId) {
+          id
+          buyer {
+            id
+            username
+            email
+          }
+          event {
+            id
+            title
+            description
+            date
+            price
+            ticketsAvailable
+            ticketsSold
+          }
+        }
+      }
+    `;
+    return this.apollo.mutate({ 
+      mutation: BUY_TICKET, 
+      variables: { eventId } 
+    }).pipe(map((result: any) => result.data.buyTicket));
   }
 }

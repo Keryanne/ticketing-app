@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { LocationService } from '../services/event.service';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'app-explore',
@@ -9,20 +8,17 @@ import { LocationService } from '../services/event.service';
   styleUrls: ['explore.page.scss']
 })
 export class ExplorePage implements OnInit {
-  isModalOpen = false;
-  adults: number = 2;
-  children: number = 0;
-  babies: number = 0;
+  events: any[] = [];
 
-  properties: any[] = [];
+  constructor(private router: Router, private eventService: EventService) {}
 
   ngOnInit() {
-    this.locationService.getAllLocations().subscribe(
+    this.eventService.getAllEvents().subscribe(
       (data) => {
-        this.properties = data;
+        this.events = data;
       },
       (error) => {
-        console.error('Error fetching locations', error);
+        console.error('Error fetching events', error);
       }
     );
   }
@@ -31,30 +27,7 @@ export class ExplorePage implements OnInit {
     this.router.navigate(['/tabs/explore-details', id]);
   }
 
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
+  goToCreateEvent() {
+    this.router.navigate(['/tabs/create-event']);
   }
-
-  increment(type: string) {
-    if (type === 'adults') {
-      this.adults++;
-    } else if (type === 'children') {
-      this.children++;
-    } else if (type === 'babies') {
-      this.babies++;
-    }
-  }
-
-  decrement(type: string) {
-    if (type === 'adults' && this.adults > 0) {
-      this.adults--;
-    } else if (type === 'children' && this.children > 0) {
-      this.children--;
-    } else if (type === 'babies' && this.babies > 0) {
-      this.babies--;
-    }
-  }
-
-  constructor(private router: Router, private modalController: ModalController, private locationService: LocationService) {}
-
 }

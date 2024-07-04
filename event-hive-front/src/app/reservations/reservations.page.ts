@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { ReservationService } from '../services/reservation.service';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'app-reservations',
@@ -12,18 +12,18 @@ export class ReservationsPage implements OnInit {
   pastReservations: any[] = [];
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService, private reservationService: ReservationService) {}
+  constructor(private authService: AuthService, private eventService: EventService) {}
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
     if (this.isLoggedIn) {
-      this.reservationService.getAllReservations().subscribe((data) => {
+      this.eventService.getUserEvents().subscribe((data) => {
         const currentDate = new Date();
-        this.upcomingReservations = data.filter((reservation: { date: string | number | Date; }) => {
-          const reservationDate = new Date(reservation.date);
-          return reservationDate >= currentDate;
+        this.upcomingReservations = data.filter((event: { date: string | number | Date; }) => {
+          const eventDate = new Date(event.date);
+          return eventDate >= currentDate;
         });
-        this.pastReservations = data.filter((reservation: { date: string | number | Date; }) => new Date(reservation.date) < currentDate);
+        this.pastReservations = data.filter((event: { date: string | number | Date; }) => new Date(event.date) < currentDate);
       });
     }
   }

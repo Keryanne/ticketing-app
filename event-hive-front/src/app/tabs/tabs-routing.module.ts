@@ -22,10 +22,6 @@ const routes: Routes = [
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
-        path: 'reservation/:propertyId',
-        loadChildren: () => import('../reservation/reservation.module').then(m => m.ReservationPageModule)
-      },
-      {
         path: 'reservations',
         loadChildren: () => import('../reservations/reservations.module').then(m => m.ReservationsPageModule)
       },
@@ -38,12 +34,8 @@ const routes: Routes = [
         loadChildren: () => import('../signup/signup.module').then( m => m.SignupPageModule)
       },
       {
-        path: 'add-location',
-        loadChildren: () => import('../add-location/add-location.module').then( m => m.AddLocationPageModule)
-      },
-      {
-        path: 'my-locations',
-        loadChildren: () => import('../my-locations/my-locations.module').then( m => m.MyLocationsPageModule)
+        path: 'create-event',
+        loadChildren: () => import('../create-event/create-event.module').then( m => m.CreateEventPageModule)
       },
       {
         path: '',

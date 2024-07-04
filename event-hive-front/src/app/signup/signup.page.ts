@@ -31,10 +31,9 @@ export class SignupPage {
         this.router.navigate(['/tabs/login']);
       },
       async (error) => {
-        
         const alert = await this.alertController.create({
           header: 'L\'inscription a échoué',
-          message: error.error.message || 'An error occurred during registration. Please try again.',
+          message: error.message || 'An error occurred during registration. Please try again.',
           buttons: ['OK']
         });
         await alert.present();

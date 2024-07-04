@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
-import { tap } from 'rxjs';
+import { gql } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,44 +11,41 @@ export class AuthService {
 
   constructor(private apollo: Apollo) {}
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<any> {
+    const LOGIN_USER = gql`
+      mutation Login($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+          token
+        }
+      }
+    `;
     return this.apollo.mutate({
-      mutation: gql`
-        mutation Login($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
-            token
-          }
-        }
-      `,
+      mutation: LOGIN_USER,
       variables: {
-        email,
-        password,
-      },
-    }).pipe(
-      tap((result: any) => {
-        const token = result?.data?.login?.token;
-        if (token) {
-          localStorage.setItem('token', token);
-        }
-      })
-    );
+        email: email,
+        password: password
+      }
+    }).pipe(map((result: any) => result.data.login));
   }
 
-  register(username: string, email: string, password: string) {
-    return this.apollo.mutate({
-      mutation: gql`
-        mutation Register($username: String!, $email: String!, $password: String!) {
-          register(username: $username, email: $email, password: $password) {
-            token
-          }
+  register(username: string, email: string, password: string): Observable<any> {
+    const REGISTER_USER = gql`
+      mutation Register($username: String!, $email: String!, $password: String!) {
+        register(username: $username, email: $email, password: $password) {
+          id
+          username
+          email
         }
-      `,
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: REGISTER_USER,
       variables: {
-        username,
-        email,
-        password,
-      },
-    });
+        username: username,
+        email: email,
+        password: password
+      }
+    }).pipe(map((result: any) => result.data.register));
   }
 
   getUserIdFromToken(): number | null {

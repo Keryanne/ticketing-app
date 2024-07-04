@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
-import { LocationService } from '../services/event.service';
-import { FlightService } from '../services/flight.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EventService } from '../services/event.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-explore-details',
@@ -9,69 +9,53 @@ import { FlightService } from '../services/flight.service';
   styleUrls: ['explore-details.page.scss']
 })
 export class ExploreDetailsPage implements OnInit {
+  event: any;
 
-  property: any;
-  flights: any[] = [];
-  totalPrice: number = 0;
-
-  constructor(private route: ActivatedRoute, private router: Router,  private locationService: LocationService, private flightService: FlightService) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private eventService: EventService,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam !== null) {
       const id = +idParam;
-      this.locationService.getLocationById(id).subscribe(
+      this.eventService.getEventById(id).subscribe(
         (data) => {
-          this.property = data;
-          if (this.property.id) {
-            this.getFlightsByCity(this.property.id);
-          }
+          this.event = data;
         },
         (error) => {
-          console.error('Error fetching location', error);
-          // Gérer le cas où l'ID est invalide ou la location n'est pas trouvée
+          console.error('Error fetching event', error);
         }
       );
     } else {
-      console.error('ID de propriété non valide');
-      // Vous pouvez rediriger l'utilisateur ou afficher un message d'erreur
+      console.error('Invalid event ID');
     }
   }
 
-  openReservation(propertyId: number) {
-    this.router.navigate(['/tabs/reservation', propertyId]);
+  async buyTicket() {
+    if (this.event && this.event.id) {
+      this.eventService.buyTicket(this.event.id).subscribe(
+        async (data) => {
+          const alert = await this.alertController.create({
+            header: 'Success',
+            message: 'Ticket purchased successfully!',
+            buttons: ['OK']
+          });
+          await alert.present();
+        },
+        async (error) => {
+          const alert = await this.alertController.create({
+            header: 'Error',
+            message: 'Error purchasing ticket. Please try again.',
+            buttons: ['OK']
+          });
+          await alert.present();
+          console.error('Error purchasing ticket', error);
+        }
+      );
+    }
   }
-
-  getFlightsByCity(propertyId: number) {
-    this.flightService.getFlightsByCity(propertyId).subscribe(
-      (data: { departureTime: string; arrivalTime: string; price: number; }[]) => {
-        this.flights = data.map((flight: { departureTime: string; arrivalTime: string; price: number; }) => ({
-          ...flight,
-          duration: this.calculateFlightDuration(flight.departureTime, flight.arrivalTime),
-          totalPrice: this.calculateTotalPrice(flight.price)
-        }));
-      },
-      (error: any) => {
-        console.error('Error fetching flights', error);
-      }
-    );
-  }
-
-  calculateFlightDuration(departureTime: string, arrivalTime: string): string {
-    const departure = new Date(departureTime);
-    const arrival = new Date(arrivalTime);
-    const durationInMs = arrival.getTime() - departure.getTime();
-    const durationInMinutes = durationInMs / (1000 * 60);
-  
-    const hours = Math.floor(durationInMinutes / 60);
-    const minutes = Math.round(durationInMinutes % 60);
-  
-    return `${hours}h ${minutes}min`;
-  }
-
-  calculateTotalPrice(flightPrice: number): number {
-    this.totalPrice = this.property.price + flightPrice;
-    return this.totalPrice
-  }
-
 }

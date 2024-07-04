@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>Ajouter une location</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]="true">
+    <form (ngSubmit)="addLocation()">
+      <ion-item>
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input [(ngModel)]="location.name" name="name" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input [(ngModel)]="location.description" name="description" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Ville</ion-label>
+        <ion-input [(ngModel)]="location.city" name="city" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Prix</ion-label>
+        <ion-input [(ngModel)]="location.price" name="price" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nombre de voyageurs max</ion-label>
+        <ion-input [(ngModel)]="location.maxGuests" name="maxGuests" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Date de disponibilité</ion-label>
+        <ion-datetime [(ngModel)]="location.availableFrom" name="availableFrom"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Date de fin de disponibilité</ion-label>
+        <ion-datetime [(ngModel)]="location.availableTo" name="availableTo"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Transport inclus</ion-label>
+        <ion-checkbox [(ngModel)]="location.includesTransport" name="includesTransport"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Image</ion-label>
+        <input type="file" (change)="onFileSelected($event)" />
+      </ion-item>
+      <ion-button expand="full" type="submit">Ajouter la location</ion-button>
+    </form>
+  </ion-content>
+  

@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>S'inscrire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">S'inscrire</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="form">
+    <form (ngSubmit)="register()">
+      <ion-item>
+        <ion-input label="Nom d'utilisateur" type="text" label-placement="floating" fill="outline" placeholder="Nom d'utilisateur" [(ngModel)]="username" name="username" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Email" type="email" label-placement="floating" fill="outline" placeholder="email@exemple.com" [(ngModel)]="email" name="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Mot de passe" type="password" label-placement="floating" fill="outline" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
+      <ion-button expand="full" type="submit">S'inscrire</ion-button>
+    </form>
+    <p>Vous avez déjà un compte ? <ion-button fill="clear" routerLink="/login">Se connecter</ion-button></p>
+  </div>
+</ion-content>

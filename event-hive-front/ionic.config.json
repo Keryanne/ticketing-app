@@ -1,0 +1,7 @@
+{
+  "name": "sky-odyssey-front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

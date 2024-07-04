@@ -1,0 +1,120 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Explorer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div class="toolbar">
+        <ion-searchbar animated="true" value="" class="searchbar-custom"></ion-searchbar>
+        <ion-button (click)="setOpen(true)" shape="round" color="primary"><ion-icon slot="icon-only" name="filter-outline" color="light"></ion-icon></ion-button>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+    <ion-card *ngFor="let property of properties" (click)="openDetails(property.id)">
+      <img alt="Image de la location" src="property.imagePath" />
+      <ion-card-header>
+        <ion-card-title>{{ property.name }}</ion-card-title>
+        <ion-card-subtitle>{{ property.city }}</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        {{ property.price }} €
+      </ion-card-content>
+    </ion-card>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <h1>Filtres</h1>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)"><ion-icon name="close-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div class="card destination">
+          <h4>Destination</h4>
+          <ion-searchbar animated="true" value="" class="searchbar-custom"></ion-searchbar>
+        </div>
+        <div class="card">
+          <h4>Durée</h4>
+          <div class="card-date">
+            <ion-button id="open-modal-date-start" fill="outline">Select Start Date</ion-button>
+            <ion-button id="open-modal-date-end" fill="outline">Select End Date</ion-button>
+          </div>
+          <!-- Modal update date -->
+          <ion-modal trigger="open-modal-date-start" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+            <ng-template>
+              <div class="block">
+                <ion-datetime presentation="date" [value]="[]"></ion-datetime>
+                <div class="buttons-modal">
+                    <ion-button color="primary" fill="outline">Annuler</ion-button>
+                    <ion-button color="primary">Enregistrer</ion-button>
+                </div>
+              </div>
+            </ng-template>
+          </ion-modal>
+
+          <!-- Modal update date -->
+          <ion-modal trigger="open-modal-date-end" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+            <ng-template>
+              <div class="block">
+                <ion-datetime presentation="date" [value]="[]"></ion-datetime>
+                <div class="buttons-modal">
+                    <ion-button color="primary" fill="outline">Annuler</ion-button>
+                    <ion-button color="primary">Enregistrer</ion-button>
+                </div>
+              </div>
+            </ng-template>
+          </ion-modal>
+        </div>
+        <div class="card">
+          <h4>Voyageurs</h4>
+          <div class="participant-selector">
+            <div class="participant">
+              <div class="details">
+                <span class="title">Adultes</span>
+                <span class="subtitle">13 ans et plus</span>
+              </div>
+              <div class="counter">
+                <ion-button (click)="decrement('adults')" color="primary" shape="round" fill="outline"><ion-icon slot="icon-only" name="remove-outline"></ion-icon></ion-button>
+                <span>{{adults}}</span>
+                <ion-button (click)="increment('adults')" color="primary" shape="round" fill="outline"><ion-icon slot="icon-only" name="add-outline"></ion-icon></ion-button>
+              </div>
+            </div>
+            <div class="participant">
+              <div class="details">
+                <span class="title">Enfants</span>
+                <span class="subtitle">De 2 à 12 ans</span>
+              </div>
+              <div class="counter">
+                <ion-button (click)="decrement('children')" color="primary" shape="round" fill="outline"><ion-icon slot="icon-only" name="remove-outline"></ion-icon></ion-button>
+                <span>{{children}}</span>
+                <ion-button (click)="increment('children')" color="primary" shape="round" fill="outline"><ion-icon slot="icon-only" name="add-outline"></ion-icon></ion-button>
+              </div>
+            </div>
+            <div class="participant">
+              <div class="details">
+                <span class="title">Bébés</span>
+                <span class="subtitle">- de 2 ans</span>
+              </div>
+              <div class="counter">
+                <ion-button (click)="decrement('babies')" color="primary" shape="round" fill="outline"><ion-icon slot="icon-only" name="remove-outline"></ion-icon></ion-button>
+                <span>{{babies}}</span>
+                <ion-button (click)="increment('babies')" color="primary" shape="round" fill="outline"><ion-icon slot="icon-only" name="add-outline"></ion-icon></ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+      <div class="modal-footer">
+        <ion-button class="footer-button" color="primary" fill="outline">Tout effacer</ion-button>
+        <ion-button class="footer-button" color="primary"><ion-icon name="search-outline"></ion-icon>Rechercher</ion-button>
+      </div>
+    </ng-template>
+  </ion-modal>
+</ion-content>

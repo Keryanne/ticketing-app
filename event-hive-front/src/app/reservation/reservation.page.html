@@ -1,0 +1,86 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button href="tabs/explore" color="primary">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Confirmer et payer</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+        <ion-card *ngIf="property">
+            <ion-card-header>
+                <ion-card-title>Votre réservation</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <div class="informations travelers">
+                    <div class="left">
+                        <h3>Nombre de personne</h3>
+                        <p>{{adults}} personnes {{adults > 1 ? 's' : ''}}</p>
+                    </div>
+                    <ion-button id="open-modal-travelers" (click)="openTravelersModal()"fill="clear">Modifier</ion-button>
+                </div>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="property">
+            <ion-card-header>
+                <ion-card-title>Détails du prix</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <div class="informations prices">
+                    <p>{{ property.price  }} € x {{ numberOfNights }} nuits {{numberOfNights > 1 ? 's' : ''}}</p>
+                    <p>Vols = {{ calculateFlightPrice() }} €</p>
+                </div>
+            </ion-card-content>
+            <div class="footer-card">
+                <h3>Total(EUR)</h3>
+                <h3>{{ calculateTotalPrice()  | number:'1.2-2' }} €</h3>
+            </div>
+        </ion-card>
+    <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+        <div class="content">
+            <ion-button expand="block"  (click)="confirmAndPay()">Confirmer et payer</ion-button>
+        </div>
+    </ng-container>
+    <ng-template #notLoggedIn>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Connectez-vous ou inscrivez-vous pour continuer</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-button expand="block" color="primary" (click)="navigateToLogin()">Se connecter</ion-button>
+                <ion-button expand="block" color="primary" fill="outline" (click)="navigateToSignup()">S'inscrire</ion-button>
+            </ion-card-content>
+        </ion-card>
+    </ng-template>
+    <!-- Modal update travelers -->
+    <ion-modal trigger="open-modal-travelers" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+        <ng-template>
+            <div class="block">
+                <div class="participant-selector">
+                    <div class="participant">
+                    <div class="details">
+                        <span class="title">Adultes</span>
+                        <span class="subtitle">13 ans et plus</span>
+                    </div>
+                    <div class="counter">
+                        <ion-button (click)="decrementTemp('adults')" color="primary" shape="round" fill="outline">
+                            <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
+                        </ion-button>
+                        <span>{{tempAdults}}</span>
+                        <ion-button (click)="incrementTemp('adults')" color="primary" shape="round" fill="outline">
+                            <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+                        </ion-button>
+                    </div>
+                    </div>
+                </div>
+                <div class="buttons-modal">
+                    <ion-button color="primary" fill="outline" (click)="cancelTravelers()">Annuler</ion-button>
+                    <ion-button color="primary" (click)="saveTravelers()">Enregistrer</ion-button>
+                </div>
+            </div>
+        </ng-template>
+    </ion-modal>
+</ion-content>

@@ -1,0 +1,58 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+:root {
+	--ion-background-color: #F6F6F6;
+	--ion-background-color-rgb: 246,246,246;
+
+    --ion-color-primary: #E64829;
+	--ion-color-primary-rgb: 230,72,41;
+	--ion-color-primary-contrast: #fff;
+	--ion-color-primary-contrast-rgb: 250,250,250;
+	--ion-color-primary-shade: #ca3f24;
+	--ion-color-primary-tint: #e95a3e;
+
+    --ion-color-secondary: #EB6A48;
+
+	--ion-text-color: #3A3957;
+	--ion-text-color-rgb: 58,57,87;
+
+	--ion-text-color-step-50: #43425f;
+	--ion-text-color-step-100: #4d4c67;
+	--ion-text-color-step-150: #56556f;
+	--ion-text-color-step-200: #605f77;
+	--ion-text-color-step-250: #69687f;
+	--ion-text-color-step-300: #727287;
+	--ion-text-color-step-350: #7c7b8f;
+	--ion-text-color-step-400: #858597;
+	--ion-text-color-step-450: #8f8e9f;
+	--ion-text-color-step-500: #9898a7;
+	--ion-text-color-step-550: #a1a1ae;
+	--ion-text-color-step-600: #abaab6;
+	--ion-text-color-step-650: #b4b4be;
+	--ion-text-color-step-700: #bebdc6;
+	--ion-text-color-step-750: #c7c7ce;
+	--ion-text-color-step-800: #d0d0d6;
+	--ion-text-color-step-850: #dadade;
+	--ion-text-color-step-900: #e3e3e6;
+	--ion-text-color-step-950: #ededee;
+
+	--ion-background-color-step-50: #ededee;
+	--ion-background-color-step-100: #e3e3e6;
+	--ion-background-color-step-150: #dadade;
+	--ion-background-color-step-200: #d0d0d6;
+	--ion-background-color-step-250: #c7c7ce;
+	--ion-background-color-step-300: #bebdc6;
+	--ion-background-color-step-350: #b4b4be;
+	--ion-background-color-step-400: #abaab6;
+	--ion-background-color-step-450: #a1a1ae;
+	--ion-background-color-step-500: #9898a7;
+	--ion-background-color-step-550: #8f8e9f;
+	--ion-background-color-step-600: #858597;
+	--ion-background-color-step-650: #7c7b8f;
+	--ion-background-color-step-700: #727287;
+	--ion-background-color-step-750: #69687f;
+	--ion-background-color-step-800: #605f77;
+	--ion-background-color-step-850: #56556f;
+	--ion-background-color-step-900: #4d4c67;
+	--ion-background-color-step-950: #43425f;
+}

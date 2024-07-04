@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Se connecter</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Se connecter</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="form">
+    <form (ngSubmit)="login()">
+      <ion-item>
+        <ion-input label="Nom" type="text" label-placement="floating" fill="outline" placeholder="Nom" color="primary" [(ngModel)]="username" name="username" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Mot de passe" type="password" label-placement="floating" fill="outline" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
+      <ion-button expand="full" type="submit">Se connecter</ion-button>
+    </form>
+    <p>Vous n'avez pas de compte ? <ion-button fill="clear" routerLink="tabs/register">S'inscrire</ion-button></p>
+  </div>
+</ion-content>

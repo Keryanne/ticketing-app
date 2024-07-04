@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Mon profil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-button slot="primary" (click)="logout()" fill="clear" color="primary"><ion-icon slot="icon-only" name="log-out-outline"></ion-icon></ion-button>
+      <ion-title size="large">Mon profil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nom Prénom</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Email : exempleexemple.fr</p>
+      <p>Mot de passe : ******</p>
+      <ion-button expand="full" (click)="navigateToAddLocation()">Ajouter une location</ion-button>
+      <ion-button expand="full" (click)="navigateToMyLocations()">Voir mes locations</ion-button>
+    </ion-card-content>
+    
+  </ion-card>
+
+</ion-content>

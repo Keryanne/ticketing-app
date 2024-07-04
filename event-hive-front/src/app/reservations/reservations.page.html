@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mes voyages</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Mes voyages</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+    <ng-container *ngIf="upcomingReservations.length > 0 || pastReservations.length > 0; else noReservations">
+      
+      <ion-list *ngIf="upcomingReservations.length > 0">
+        <ion-list-header>
+          <ion-label>Voyages à venir</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let reservation of upcomingReservations">
+          <div class="reservation">
+            <div class="reservation-left">
+              <h2>{{ reservation.title }}</h2>
+              <p>{{ reservation.date | date:'short' }}</p>
+            </div>
+            <div class="reservation-right">
+              <h3>{{ reservation.price }} €</h3>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="pastReservations.length > 0">
+        <ion-list-header>
+          <ion-label>Voyages passés</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let reservation of pastReservations">
+          <div class="reservation">
+            <div class="reservation-left">
+              <h2>{{ reservation.title }}</h2>
+              <p>{{ reservation.date | date }}</p>
+            </div>
+            <div class="reservation-right">
+              <h3>{{ reservation.price }} €</h3>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+
+    </ng-container>
+    <ng-template #noReservations>
+      <ion-text color="medium">
+        <p>Aucun voyages trouvé</p>
+      </ion-text>
+    </ng-template>
+  </ng-container>
+  <ng-template #notLoggedIn>
+    <ion-text color="danger">
+      <p>Vous devez être connecter pour voir vos voyages</p>
+    </ion-text>
+    <ion-button expand="full" routerLink="/tabs/login">Se connecter</ion-button>
+  </ng-template>
+</ion-content>

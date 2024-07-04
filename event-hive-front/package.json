@@ -1,43 +1,69 @@
 {
-  "name": "event-hive-front",
-  "version": "0.1.0",
-  "private": true,
+  "name": "sky-odyssey-front",
+  "version": "0.0.1",
+  "author": "Ionic Framework",
+  "homepage": "https://ionicframework.com/",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint"
   },
+  "private": true,
   "dependencies": {
-    "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "@angular/animations": "^18.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/compiler": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/forms": "^18.0.0",
+    "@angular/platform-browser": "^18.0.0",
+    "@angular/platform-browser-dynamic": "^18.0.0",
+    "@angular/router": "^18.0.0",
+    "@apollo/client": "^3.10.8",
+    "@capacitor/app": "6.0.0",
+    "@capacitor/core": "6.1.0",
+    "@capacitor/haptics": "6.0.0",
+    "@capacitor/keyboard": "6.0.1",
+    "@capacitor/status-bar": "6.0.0",
+    "@ionic/angular": "^8.0.0",
+    "@stripe/stripe-js": "^4.0.0",
+    "apollo-angular": "^7.0.2",
+    "graphql": "^16.9.0",
+    "ionicons": "^7.0.0",
+    "rxjs": "~7.8.0",
+    "stripe": "^16.1.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "@angular-devkit/build-angular": "^18.0.0",
+    "@angular-eslint/builder": "^18.0.0",
+    "@angular-eslint/eslint-plugin": "^18.0.0",
+    "@angular-eslint/eslint-plugin-template": "^18.0.0",
+    "@angular-eslint/schematics": "^18.0.0",
+    "@angular-eslint/template-parser": "^18.0.0",
+    "@angular/cli": "^18.0.0",
+    "@angular/compiler-cli": "^18.0.0",
+    "@angular/language-service": "^18.0.0",
+    "@capacitor/cli": "6.1.0",
+    "@ionic/angular-toolkit": "^11.0.1",
+    "@types/jasmine": "~5.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsdoc": "^48.2.1",
+    "eslint-plugin-prefer-arrow": "1.2.2",
+    "jasmine-core": "~5.1.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.4.0"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+  "description": "An Ionic project"
 }

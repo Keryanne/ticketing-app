@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Paiement</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Annuler</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <p>Montant: {{ amount / 100 | currency:'EUR' }}</p>
+    <!-- Ajoutez votre élément de carte ici -->
+    <ion-button expand="block" (click)="pay()">Payer</ion-button>
+  </div>
+</ion-content>

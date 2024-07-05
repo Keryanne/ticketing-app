@@ -14,9 +14,7 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     const LOGIN_USER = gql`
       mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-          token
-        }
+        login(email: $email, password: $password)
       }
     `;
     return this.apollo.mutate({
@@ -31,11 +29,7 @@ export class AuthService {
   register(username: string, email: string, password: string): Observable<any> {
     const REGISTER_USER = gql`
       mutation Register($username: String!, $email: String!, $password: String!) {
-        register(username: $username, email: $email, password: $password) {
-          id
-          username
-          email
-        }
+        register(username: $username, email: $email, password: $password)
       }
     `;
     return this.apollo.mutate({

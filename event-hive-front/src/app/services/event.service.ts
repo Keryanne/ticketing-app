@@ -68,7 +68,7 @@ export class EventService {
 
   createEvent(event: any): Observable<any> {
     const CREATE_EVENT = gql`
-      mutation CreateEvent($title: String!, $description: String!, $date: String!, $price: Float!, $ticketsAvailable: Int!) {
+      mutation CreateEvent($title: String!, $description: String!, $date: String!, $price: Int!, $ticketsAvailable: Int!) {
         createEvent(title: $title, description: $description, date: $date, price: $price, ticketsAvailable: $ticketsAvailable) {
           id
           title
